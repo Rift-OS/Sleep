@@ -1,18 +1,20 @@
-// code is src/kernel.c
+// code is src/kernel.cpp
 #include "timer.h"
 
-// OSのメインエントリーポイント（関数名は環境に合わせてください）
-void kernel_main(void) {
+// Cリンケージを指定してC言語やブートローダー（アセンブリ）からの呼び出しを可能にする
+extern "C" {
+    void kernel_main();
+}
+
+// OSのメインエントリーポイント
+void kernel_main() {
     
     // 1. グラフィックやメモリの初期化のあとにタイマーを初期化
     init_sleep_timer();
 
     // 2. 実際の使用例（画面に文字を出して1秒待つ、を繰り返す）
-    while (1) {
-        // 例: print("Hello OS World!\n");
-        
+    while (true) {        
         msleep(1000); // 1000ミリ秒（1秒）スリープ
         
-        // 例: print("1 second passed.\n");
     }
 }
